@@ -25,6 +25,7 @@ module.exports = function(grunt){
             dist: {
                 src: [
                     'src/mainModule.js',
+                    'src/loaderService.js',
                     'src/httpInterceptor.js',
                     'src/config.js',
                     'src/loaderDirective.js'

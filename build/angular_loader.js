@@ -1,16 +1,40 @@
 /*! angular_loader - v1.0.0 - 2015-11-06 */ 
 var loaderModule = angular.module('loader-component', []);
-loaderModule.factory('loaderHttpInterceptor', ['$q', '$rootScope', function($q, $rooScope) {
+loaderModule.service('loaderService', ['$rootScope', function($rootScope){
+    var _service = this;
+
+    var _loadingEvent = 'loading';
+    var _startLoadingEvent = _loadingEvent + ':start';
+    var _finishLoadingEvent = _loadingEvent + ':finish';
+
+    _service.getStartLoadingEvent = function(){
+        return _startLoadingEvent;
+    };
+
+    _service.getFinishLoadingEvent = function(){
+        return _finishLoadingEvent;
+    };
+
+    _service.dispatchStartLoadingEvent = function(){
+        $rootScope.$broadcast(_service.getStartLoadingEvent());
+    };
+
+    _service.dispatchFinishLoadingEvent = function(){
+        $rootScope.$broadcast(_service.getFinishLoadingEvent());
+    };
+
+}]);
+
+loaderModule.factory('loaderHttpInterceptor', ['$q', 'loaderService', function($q, loaderService) {
     return {
         // optional method
         'request': function(config) {
-            $rooScope.$broadcast('loading:start');
+            loaderService.dispatchStartLoadingEvent();
             return config;
         },
 
         // optional method
         'requestError': function(rejection) {
-
             return $q.reject(rejection);
         },
 
@@ -18,15 +42,13 @@ loaderModule.factory('loaderHttpInterceptor', ['$q', '$rootScope', function($q, 
 
         // optional method
         'response': function(response) {
-            // do something on success
-            $rooScope.$broadcast('loading:finish');
+            loaderService.dispatchFinishLoadingEvent();
             return response;
         },
 
         // optional method
         'responseError': function(rejection) {
-            // do something on error
-            $rooScope.$broadcast('loading:finish');
+            loaderService.dispatchFinishLoadingEvent();
             return $q.reject(rejection);
         }
     };

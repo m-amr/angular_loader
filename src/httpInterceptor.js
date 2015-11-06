@@ -2,17 +2,16 @@
  * Created by amr on 11/6/15.
  */
 
-loaderModule.factory('loaderHttpInterceptor', ['$q', '$rootScope', function($q, $rooScope) {
+loaderModule.factory('loaderHttpInterceptor', ['$q', 'loaderService', function($q, loaderService) {
     return {
         // optional method
         'request': function(config) {
-            $rooScope.$broadcast('loading:start');
+            loaderService.dispatchStartLoadingEvent();
             return config;
         },
 
         // optional method
         'requestError': function(rejection) {
-
             return $q.reject(rejection);
         },
 
@@ -20,15 +19,13 @@ loaderModule.factory('loaderHttpInterceptor', ['$q', '$rootScope', function($q, 
 
         // optional method
         'response': function(response) {
-            // do something on success
-            $rooScope.$broadcast('loading:finish');
+            loaderService.dispatchFinishLoadingEvent();
             return response;
         },
 
         // optional method
         'responseError': function(rejection) {
-            // do something on error
-            $rooScope.$broadcast('loading:finish');
+            loaderService.dispatchFinishLoadingEvent();
             return $q.reject(rejection);
         }
     };
