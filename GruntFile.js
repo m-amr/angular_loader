@@ -4,8 +4,21 @@
 
 module.exports = function(grunt){
 
-    grunt.registerTask('build', function(){
-        console.log('building task is running....');
+    //Configure grunt
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        uglify: {
+            build: {
+                src: 'src/*.js',
+                dest: 'build/<%= pkg.name %>.min.js'
+            }
+        }
     });
+
+    //Load Npm Tasks
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+
+    //Register Tasks
+    grunt.registerTask('build', ['uglify']);
 
 };
