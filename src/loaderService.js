@@ -25,4 +25,12 @@ loaderModule.service('loaderService', ['$rootScope', function($rootScope){
         $rootScope.$broadcast(_service.getFinishLoadingEvent());
     };
 
+    _service.showElement = function(element){
+        element[0].style.display = 'block';
+    };
+
+    _service.hideElement = function(element){
+        element[0].style.display = 'none';
+    };
+
 }]);

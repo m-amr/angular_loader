@@ -23,6 +23,14 @@ loaderModule.service('loaderService', ['$rootScope', function($rootScope){
         $rootScope.$broadcast(_service.getFinishLoadingEvent());
     };
 
+    _service.showElement = function(element){
+        element[0].style.display = 'block';
+    };
+
+    _service.hideElement = function(element){
+        element[0].style.display = 'none';
+    };
+
 }]);
 
 loaderModule.factory('loaderHttpInterceptor', ['$q', 'loaderService', function($q, loaderService) {
@@ -57,28 +65,20 @@ loaderModule.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('loaderHttpInterceptor');
 }]);
 // 3- define directive.
-loaderModule.directive('loaderElement', [function(){
-
-    var Loader = function(){};
-    Loader.prototype.show = function(element){
-        element[0].style.display = 'block';
-    };
-    Loader.prototype.hide = function(element){
-        element[0].style.display = 'none';
-    };
-    var _loader = new Loader();
+loaderModule.directive('loaderElement', ['loaderService', function(loaderService){
 
     return {
         restrict: 'A',
         scope: {},
         link: function($scope, $element) {
-            _loader.hide(angular.element($element));
-            $scope.$on('loading:start', function(){
-                _loader.show($element);
+            loaderService.hideElement($element);
+
+            $scope.$on(loaderService.getStartLoadingEvent(), function(){
+                loaderService.showElement($element);
             });
 
-            $scope.$on('loading:finish', function(){
-                _loader.hide($element);
+            $scope.$on(loaderService.getFinishLoadingEvent(), function(){
+                loaderService.hideElement($element);
             });
         }
     }
