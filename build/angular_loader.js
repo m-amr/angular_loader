@@ -1,4 +1,6 @@
-/*! angular_loader - v1.0.0 - 2015-11-06 */ 
+/*! angular_loader - v1.0.0 - 2015-11-07 */ 
+(function(){
+
 var loaderModule = angular.module('loader-component', []);
 loaderModule.service('loaderService', ['$rootScope', function($rootScope){
     var _service = this;
@@ -83,3 +85,5 @@ loaderModule.directive('loaderElement', ['loaderService', function(loaderService
         }
     }
 }]);
+
+})();
