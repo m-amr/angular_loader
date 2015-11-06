@@ -39,3 +39,7 @@ loaderModule.factory('loaderHttpInterceptor', ['$q', '$rootScope', function($q, 
         }
     };
 }]);
+
+loaderModule.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push('loaderHttpInterceptor');
+}]);
