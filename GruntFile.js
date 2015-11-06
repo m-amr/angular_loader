@@ -15,8 +15,20 @@ module.exports = function(grunt){
         },
 
         concat: {
+
+            options: {
+                stripBanners: true,
+                banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
+                '<%= grunt.template.today("yyyy-mm-dd") %> */ \n'
+            },
+
             dist: {
-                src: ['src/mainModule.js', 'src/httpInterceptor.js', 'src/config.js', 'src/loaderDirective.js'],
+                src: [
+                    'src/mainModule.js',
+                    'src/httpInterceptor.js',
+                    'src/config.js',
+                    'src/loaderDirective.js'
+                ],
                 dest: 'build/<%= pkg.name %>.js'
             }
         }

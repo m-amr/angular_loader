@@ -1,13 +1,5 @@
-/**
- * Created by amr on 11/6/15.
- */
-
-
+/*! angular_loader - v1.0.0 - 2015-11-06 */ 
 var loaderModule = angular.module('loader-component', []);
-/**
- * Created by amr on 11/6/15.
- */
-
 loaderModule.factory('loaderHttpInterceptor', ['$q', '$rootScope', function($q, $rooScope) {
     return {
         // optional method
@@ -39,17 +31,9 @@ loaderModule.factory('loaderHttpInterceptor', ['$q', '$rootScope', function($q, 
         }
     };
 }]);
-/**
- * Created by amr on 11/6/15.
- */
-
 loaderModule.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push('loaderHttpInterceptor');
 }]);
-/**
- * Created by amr on 11/6/15.
- */
-
 // 3- define directive.
 loaderModule.directive('loaderElement', [function(){
 
