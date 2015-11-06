@@ -30,7 +30,8 @@ module.exports = function(grunt){
                     'src/loaderService.js',
                     'src/httpInterceptor.js',
                     'src/config.js',
-                    'src/loaderDirective.js'
+                    'src/loaderDirective.js',
+                    'src/define.js'
                 ],
                 dest: 'build/<%= pkg.name %>.js'
             }

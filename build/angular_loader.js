@@ -85,5 +85,16 @@ loaderModule.directive('loaderElement', ['loaderService', function(loaderService
         }
     }
 }]);
+/*
+ * support require.js
+ * if define is a function
+ * define module
+ */
+
+if(typeof define === 'function'){
+    define(function(){
+        return angular.module('loader-component');
+    });
+}
 
 })();
