@@ -1,6 +1,9 @@
 /*! angular_loader - v1.0.0 - 2015-11-07 */ 
 (function(){
 
+if(typeof angular === 'undefined'){
+    throw 'This library use angular.js as a dependency, make sure that angular.js is loaded.';
+}
 var loaderModule = angular.module('loader-component', []);
 loaderModule.service('loaderService', ['$rootScope', function($rootScope){
     var _service = this;
